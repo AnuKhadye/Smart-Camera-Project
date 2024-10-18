@@ -1,0 +1,39 @@
+#Written by Lawrence Mann on 26/02/2024
+
+#code from https://universe.roboflow.com/microsoft/coco/model/9
+#pip install inference_sdk
+from inference_sdk import InferenceHTTPClient
+
+def get_predictions(photopath):
+   CLIENT = InferenceHTTPClient(
+      api_url="https://detect.roboflow.com",
+      api_key="gCKCuAfD1ZqFgdPTYvLS")
+   detections = CLIENT.infer(photopath, model_id="coco/9")
+   result = return_predictions(detections)
+   return result
+
+def return_predictions(result):
+   number_of_predictions = len(result["predictions"])
+   list = []
+   for number in range(0,number_of_predictions):
+      list.append(result["predictions"][number]["class"])
+      print(result["predictions"][number]["class"])
+
+#pip install opencv
+
+import cv2
+
+def showpic(image):
+   cv2.imshow("hello",image)
+   cv2.waitKey(0)
+   cv2.destroyAllWindows()
+
+def snap():
+   cam = cv2.VideoCapture(0)
+   result, image = cam.read()
+   if result: 
+      cv2.imwrite('picture.jpg',image)
+      get_predictions("picture.jpg")
+      showpic(image)
+   else:
+      print("no picture")
