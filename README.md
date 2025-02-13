@@ -1,5 +1,3 @@
-# Written by Fernando Campos on 02/04/2024
-
 # Maverick-Integrative-Project
 Smart Camera: “The Companion Device”
 
